@@ -51,7 +51,7 @@ export default {
     token: '',
     rules: {
       required: value => !!value || 'Required.',
-      min: v => v.length >= 4 || 'Min 4 characters',
+      min: v => v.length >= 5 || 'Min 5 characters',
       emailMatch: () => (`The email and password you entered don't match`),
     },
   }),
