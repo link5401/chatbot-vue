@@ -1,113 +1,132 @@
-<template>
-    <div id="Background">
-        <v-container id="container">
-            <img id="group05-wave" src="../assets/group05-wave.png">
-
-            <img id="group311-circle-lines" src="../assets/group311-cricle-lines.png">
-            <img id="group310-circle-lines" src="../assets/group310-circle-lines.png">
-            <img id="group9-triangle" src="../assets/group9-triangle.png">
-            <img id="group08-spiral" src="../assets/group08-spiral.png">
-            <div id="cube-text">CUBE SYSTEM VIETNAM CO.,LTD. © 2022</div>
-            <img id="group313-chatbot-logo" src="../assets/group313-chatbot-logo.png">
-            <img id="bx-message-details" src="../assets/bx_message-detail.png">
-        </v-container>
-    </div>
+<template lang="pug">
+.background
+    v-container.bg
+    v-container#container
+     
+        img#group05-wave(src='../assets/group05-wave.png')
+        img#group311-circle-lines(src='../assets/group311-cricle-lines.png')
+        img#group310-circle-lines(src='../assets/group310-circle-lines.png')
+        img#group9-triangle(src='../assets/group9-triangle.png')
+        img#group08-spiral(src='../assets/group08-spiral.png')
+        #cube-text CUBE SYSTEM VIETNAM CO.,LTD. © 2022
+        img#group313-chatbot-logo(src='../assets/group313-chatbot-logo.png')
+        img#bx-message-details(src='../assets/bx_message-detail.png')
 </template>
 
 
-<style>
-div[data-app='true'] {
-    background: url('../assets/gradient-background.png') no-repeat center center !important;
+<style lang="sass">
+$theme-color:#848EEB
 
-    background-size: cover;
-    background-position: absolute;
+// div[data-app=true] 
+//     background: url('../assets/gradient-background.png') no-repeat center center !important
+//     display: flex
+//     background-size: cover
+//     background-position: absolute
+//     z-index: 0
+//     /* overflow: hidden */
+//     overflow: hidden
+.bg
+    background: url('../assets/gradient-background.png') no-repeat !important
+    display: flex
+    position: absolute
+    width: 1700px
+    height: 1110px
+    top: 50%
+    left: 52.3%
+    transform: translate(-50%, -50%)
+    z-index: 0
+    overflow: hidden    
     
-    overflow: hidden;
+#container  
+    display: flex
+    position: absolute
+    z-index: 2
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
 
-}
 
-#container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-}
 
-#group05-wave {
-    position: absolute;
-    top: -480px;
-    left: 165px;
-    max-width: 100%;
-    width: 313.49px;
-    height: 80px;
-}
+#group05-wave 
+    position: absolute
+    top: -480px
+    left: 165px
+    max-width: 100%
+    width: 313.49px
+    height: 80px
 
-#group311-circle-lines {
-    position: absolute;
-    width: 337.33px;
-    height: 349.15px;
-    max-width: 100%;
-    left: 1405px;
-    top: 165px;
 
-}
+#group311-circle-lines 
+    position: absolute
+    width: 337.33px
+    height: 349.15px
+    max-width: 100%
+    left: 1405px
+    top: 215px
 
-#group310-circle-lines {
-    position: absolute;
-    max-width: 100%;
 
-    width: 337.11px;
-    height: 348.93px;
-    left: 1405px;
-    top: -500px;
-}
 
-#group9-triangle {
-    position: absolute;
-    max-width: 100%;
+#group310-circle-lines 
+    position: absolute
+    max-width: 100%
 
-    left: 43px;
-    top: -320px;
-}
+    width: 337.11px
+    height: 348.93px
+    left: 1405px
+    top: -500px
 
-#group08-spiral {
-    position: absolute;
-    max-width: 100%;
 
-    left: 43px;
-    top: 295px;
-}
+#group9-triangle 
+    position: absolute
+    max-width: 100%
 
-#cube-text {
-    position: absolute;
+    left: 43px
+    top: -320px
 
-    font-family: 'Lato';
-    font-style: thin;
-    font-size: 18px;
-    line-height: 22px;
-    color: #FFFFFF;
-    top: 445px;
-    left: 720px;
-}
 
-#group313-chatbot-logo {
-    position: absolute;
-    width: 212px; 
-    height: 261px; 
-    left: 789px;
-    top: -425px;
-}
+#group08-spiral 
+    position: absolute
+    max-width: 100%
 
-#bx-message-details {
-    position: absolute;
+    left: 43px
+    top: 295px
 
-    left:480px;
-    top:120px;
-}
+
+#cube-text 
+    position: absolute
+
+    font-family: 'Lato'
+    font-style: thin
+    font-size: 18px
+    line-height: 22px
+    color: #FFFFFF
+    top: 445px
+    left: 720px
+
+
+#group313-chatbot-logo 
+    position: absolute
+    width: 212px
+    height: 261px
+    left: 789px
+    top: -425px
+
+
+#bx-message-details 
+    position: absolute
+
+    left: 480px
+    top: 120px
+
 </style>
 <script>
+
 export default {
-    name: 'BackGround'
+    name: 'BackGround',
+    // data() {
+    //     return {
+    //         image: "@/assets/background.png",
+    //     };
+    // },
 };
 </script>
