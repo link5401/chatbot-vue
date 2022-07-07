@@ -7,12 +7,12 @@
       template(v-slot:prepend-inner)
         v-fade-transition(leave-absolute='')
           v-progress-circular(v-if='loading' color='info' indeterminate='')
-          img#lock-circle(src='../assets/username-icon.png' alt='')
+          img#lock-circle(src='../assets/img/username-icon.png' alt='')
     v-text-field#password(v-model='password' width='330px' height='55px' placeholder='password' :rules='[rules.required, rules.min]' :type="'password'" name='input-10-1' hint='At least 8 characters' counter='' filled='' rounded='' dense='')
       template(v-slot:prepend-inner)
         v-fade-transition(leave-absolute='')
           v-progress-circular(v-if='loading' color='info' indeterminate='')
-          img#lock-circle(src='../assets/lock-circle.png' alt='')
+          img#lock-circle(src='../assets/img/lock-circle.png' alt='')
     v-btn#login-button(block='' v-on:click='info' color='#5E6BE5')| Login
     |{{f}}
     |{{token}}
@@ -22,8 +22,8 @@
 
 
 <style lang="sass">
-$theme-color: #848EEB 
-$theme-font: Inter
+
+
 #login 
   /* display: flex; */
   position: absolute
@@ -138,7 +138,7 @@ export default {
       
            this.token = response.data.token;
          
-          this.$router.push({ path: '/welcome' });
+          this.$router.push({ path: '/home' });
     
         })
 

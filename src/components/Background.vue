@@ -1,50 +1,27 @@
 <template lang="pug">
 .background
-    v-container.bg
     v-container#container
-     
-        img#group05-wave(src='../assets/group05-wave.png')
-        img#group311-circle-lines(src='../assets/group311-cricle-lines.png')
-        img#group310-circle-lines(src='../assets/group310-circle-lines.png')
-        img#group9-triangle(src='../assets/group9-triangle.png')
-        img#group08-spiral(src='../assets/group08-spiral.png')
+        v-container.bg
+        img#group05-wave(src='../assets/img/group05-wave.png')
+        img#group311-circle-lines(src='../assets/img/group311-cricle-lines.png')
+        img#group310-circle-lines(src='../assets/img/group310-circle-lines.png')
+        img#group9-triangle(src='../assets/img/group9-triangle.png')
+        img#group08-spiral(src='../assets/img/group08-spiral.png')
         #cube-text CUBE SYSTEM VIETNAM CO.,LTD. © 2022
-        img#group313-chatbot-logo(src='../assets/group313-chatbot-logo.png')
-        img#bx-message-details(src='../assets/bx_message-detail.png')
+        img#group313-chatbot-logo(src='../assets/img/group313-chatbot-logo.png')
+        img#bx-message-details(src='../assets/img/bx_message-detail.png')
 </template>
 
 
 <style lang="sass">
-$theme-color:#848EEB
-
-// div[data-app=true] 
-//     background: url('../assets/gradient-background.png') no-repeat center center !important
-//     display: flex
-//     background-size: cover
-//     background-position: absolute
-//     z-index: 0
-//     /* overflow: hidden */
-//     overflow: hidden
-.bg
-    background: url('../assets/gradient-background.png') no-repeat !important
-    display: flex
-    position: absolute
-    width: 1700px
-    height: 1110px
-    top: 50%
-    left: 52.3%
-    transform: translate(-50%, -50%)
-    z-index: 0
-    overflow: hidden    
-    
-#container  
-    display: flex
-    position: absolute
-    z-index: 2
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
-
+.background
+    background: linear-gradient(293.09deg, #9772FB 0%, #5C6AE4 100%)
+    height: 100vh
+    background-position: center
+    background-repeat: no-repeat
+    background-size: cover
+    position: relative
+   
 
 
 #group05-wave 
@@ -120,13 +97,12 @@ $theme-color:#848EEB
 
 </style>
 <script>
-
 export default {
     name: 'BackGround',
-    // data() {
-    //     return {
-    //         image: "@/assets/background.png",
-    //     };
-    // },
+    data() {
+        return {
+            image: "@/assets/background.png",
+        };
+    },
 };
 </script>
