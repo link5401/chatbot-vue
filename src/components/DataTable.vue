@@ -64,9 +64,11 @@ export default {
 
     name: 'DataTable',
     data: () => ({
+        trainingPhrase: null,
         dialog: false,
         editedIndex: -1,
         dialogDelete: false,
+
         headers: [
             {
                 text: 'ID',
@@ -80,6 +82,7 @@ export default {
             { text: 'Prompts', value: 'Prompts.PromptQuestion', id: 'header-prompts' },
             { text: 'Actions', value: 'actions', sortable: false }
         ],
+
         items: [
         ],
         editedItem: {
@@ -97,7 +100,8 @@ export default {
                 message_content: "",
             },
             Prompts: { PromptQuestion: [] },
-        }
+        },
+
 
     }),
     methods: {
@@ -164,34 +168,46 @@ export default {
                 )
             this.closeDelete()
         },
+
+
+
         save() {
             if (this.editedIndex > -1) {
                 Object.assign(this.items[this.editedIndex], this.editedItem)
             } else {
-
-                axios
-                    .post("http://localhost:3000/intents/addIntent",
-                        {
+                if (this.editedItem.Prompts.PromptQuestion.length == 0) {
+                    axios
+                        .post("http://localhost:3000/intents/addIntent", {
                             IntentName: this.editedItem.IntentName,
-                            trainingPhrases: this.editedItem.TrainingPhrases,
-                            prompts: {
-                                PromptQuestion: this.editedItem.Prompts.PromptQuestion
-                            },
+                            trainingPhrases: this.editedItem.TrainingPhrases.split(","),
                             reply: {
                                 message_content: this.editedItem.Reply.message_content,
                                 userID: this.$store.state.username
                             },
+                            prompts: {
+                                PromptQuestion: this.editedItem.Prompts.PromptQuestion
+                            },
 
-                        },
-                        {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'accept': 'application/json',
-                                'token': this.$store.state.token
-                            }
-                        }
-                    )
+                        }, { headers: { 'token': this.$store.state.token } })
+                        .then(response => {
+                            console.log(response)
+                        })
+                } else {
+                    axios
+                        .post("http://localhost:3000/intents/addIntent", {
 
+                            IntentName: this.editedItem.IntentName,
+                            trainingPhrases: this.editedItem.TrainingPhrases.split(","),
+                            prompts: {
+                                PromptQuestion: this.editedItem.Prompts.PromptQuestion.split(",")
+                            },
+
+
+                        }, { headers: { 'token': this.$store.state.token } })
+                        .then(response => {
+                            console.log(response)
+                        })
+                }
                 this.items.push(this.editedItem)
             }
             this.close()
