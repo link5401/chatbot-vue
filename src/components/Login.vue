@@ -28,7 +28,9 @@
   /* display: flex; */
   position: absolute
   top: 50%
+  // top:505px
   left: 50%
+  // left: 950px
   transform: translate(-50%, -50%)
 
   z-index: 3
@@ -131,13 +133,12 @@ export default {
           password: this.password,
           username: this.username
         })
-        .then( response =>  {
+        .then(response =>  {
     
           this.setUsername(this.username);
-          this.setToken(response.data.token);
-      
-           this.token = response.data.token;
-         
+          this.setToken(response.data.token);     
+          this.token = response.data.token;
+          console.log(this.token)
           this.$router.push({ path: '/home' });
     
         })

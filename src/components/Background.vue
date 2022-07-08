@@ -21,13 +21,20 @@
     background-repeat: no-repeat
     background-size: cover
     position: relative
-   
+    overflow: hidden
+#container
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)   
+    
 
 
 #group05-wave 
     position: absolute
     top: -480px
-    left: 165px
+    // left: 165px
+    left: 68px
     max-width: 100%
     width: 313.49px
     height: 80px
@@ -38,7 +45,8 @@
     width: 337.33px
     height: 349.15px
     max-width: 100%
-    left: 1405px
+    // left: 1405px
+    left:1505px
     top: 215px
 
 
@@ -49,7 +57,8 @@
 
     width: 337.11px
     height: 348.93px
-    left: 1405px
+    // left: 1405px
+    left:1505px
     top: -500px
 
 
@@ -57,7 +66,8 @@
     position: absolute
     max-width: 100%
 
-    left: 43px
+    // left: 43px
+    left:-58px
     top: -320px
 
 
@@ -65,7 +75,8 @@
     position: absolute
     max-width: 100%
 
-    left: 43px
+    // left: 43px
+    left:-55px
     top: 295px
 
 
@@ -92,8 +103,10 @@
 #bx-message-details 
     position: absolute
 
-    left: 480px
-    top: 120px
+    // left: 480px
+    left: 475px
+    // top: 120px
+    top:143px
 
 </style>
 <script>
