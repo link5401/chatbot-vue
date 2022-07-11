@@ -11,6 +11,10 @@ v-app#f
                     v-icon mdi-dog
                 router-link(to='/home') Home
             v-list-item 
+                v-list-item-icon 
+                    v-icon mdi-message
+                router-link(to='/message') Message
+            v-list-item 
                 v-list-item-icon
                     v-icon mdi-logout
                 v-btn(v-on:click= 'logOut') Logout
@@ -19,12 +23,12 @@ v-app#f
             v-toolbar-title Application
     v-divider
     v-main 
-        DataTable#tab
+        <slot/>
 </template>
 <script>
 // import axios from "axios";
 import { mapGetters, mapMutations } from "vuex";
-import DataTable from '../components/DataTable.vue'
+import IntentTable from '../components/IntentTable.vue'
 // import CreateIntent from '../components/CreateIntent.vue'
 export default {
     name: 'WireFrame',
@@ -35,7 +39,7 @@ export default {
 
     }),
     components:{
-        DataTable,
+        IntentTable,
         // CreateIntent
     },
     computed: {

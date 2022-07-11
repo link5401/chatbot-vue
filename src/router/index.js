@@ -4,7 +4,9 @@ import Vue from 'vue'
 
 import Login from '@/views/LoginPage'
 // import Welcome from '@/views/Welcome'
-import mainframe from '@/components/Mainframe'
+// import mainframe from '@/components/Mainframe'
+import WireFrame from '@/views/Welcome'
+import MessagePage from '@/views/MessagePage'
 // import HelloWorld from '@/components/HelloWorld'
 Vue.use(VueRouter)
 
@@ -17,9 +19,19 @@ export default new VueRouter({
         },
         {
             path: '/home',
-            name: 'mainframe',
-            component: mainframe
+            name: 'welcome',
+            component: WireFrame
         },
+        {
+            path : '/',
+            name: 'slash',
+            redirect:  {path: '/login'}
+        },
+        {
+            path:'/message',
+            name: 'message',
+            component: MessagePage
+        }
       
     ]
 })
