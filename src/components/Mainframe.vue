@@ -1,5 +1,5 @@
 <template lang="pug">
-v-app#f
+v-app#frame
     v-navigation-drawer#drawer(v-model='drawer' app='')
         v-list
             v-list-item(v-if='!isLoggedIn')
@@ -59,12 +59,6 @@ export default {
 
 }
 </script>
-<style lang="sass">
-#f
-    background:$__dashboard_bg
-#data
-    background:$__dashboard_bg
-    // border-radius: 0px 50px 50px 0px
-#drawer
-    // border-radius: 0px 50px 50px 0px
+<style lang="sass" src="@/assets/style/_mainframe.sass">
+
 </style>
