@@ -1,26 +1,11 @@
 <template lang="pug">
-.dataTable
-    v-data-table(:headers='headers' :items='items' hide-default-header :items-per-page='5')   
+v-layout(v-resize="onResize" column style="padding-top:50px")
+    v-data-table(:headers="headers" :items='items' hide-default-header height="500px"  :class="{mobile: isMobile}" :pagination.sync="pagination" :items-per-page='5')   
         template(v-slot:top)
             v-toolbar(flat)
                 v-toolbar-title Intents
                 v-divider(class="mx-4" inset vertical)
                 v-spacer
-                v-dialog(v-model="dialog" max-width="500px")
-                    v-card
-                        v-card-title
-                            span(class="text-h5") {{ cardTitle }}
-                        v-card-text
-                            v-container
-                                v-row
-                                    v-col(cols="12",sm="6",md="4")
-                                        v-text-field(v-model="editedItem.UserID" label="Input Message")
-                                    v-col(cols="12",sm="6",md="4")
-                                        v-text-field(v-model="editedItem.Time" label="Output Message")
-                                    v-col(cols="12",sm="6",md="4")
-                                        v-text-field(v-model="editedItem.InputMessage" label="Time")
-                                    v-col(cols="12",sm="6",md="4")
-                                        v-text-field(v-model="editedItem.OutputMessage" label="User ID")
                 v-dialog(v-model="dialogDelete" max-width='500px')
                     v-card
                         v-card-title.text-h5 Are you sure you want to delete this item?
@@ -28,24 +13,48 @@
                             v-spacer
                             v-btn(color='blue darken-1' text @click="closeDelete") Cancel
                             v-btn(color='blue darken-1' text @click="deleteItemConfirm") OK                       
-        template(v-slot:item.actions="{ item }")
-            v-icon(small @click="deleteItem(item)" color="red") mdi-delete
-        template.header(v-slot:header="{ props }")
-            //- th.header-text-color(v-for="head in props.headers") {{head.text}}
+        //- template(v-slot:item.actions="{ item }")
+        //-     v-icon(small @click="deleteItem(item)" color="red") mdi-delete
+        //- template.header(v-slot:header="{ props }")
+        //-     //- th.header-text-color(v-for="head in props.headers") {{head.text}}
+        //-     th.header-id {{ props.headers[0].text }}  
+        //-     th.header-d {{ props.headers[1].text }}                
+        //-     th.header-d {{ props.headers[2].text }}                
+        //-     th.header-d {{ props.headers[3].text }}                
+        //-     //- th.header-d {{ props.headers[4].text }}
+        //-     th.header-actions Actions
+        //- template(v-slot:item.UserID="{ item }")
+        //-     div.body-data {{ item.UserID }}
+        //- template(v-slot:item.Time="{ item }")
+        //-     div.body-data {{ item.time }}
+        //- template(v-slot:item.InputMessage="{ item }")
+        //-     div.body-data {{ item.InputMessage }}
+        //- template(v-slot:item.OutputMessage="{ item }")
+        //-     div.body-data {{ item.OutputMessage }}       
+        template(v-slot:item="{ item }")            
+            tr(v-if="!isMobile")
+                td.list-item-not-mobile {{ item.UserID}}
+                td.list-item-not-mobile {{ item.time }}
+                td.list-item-not-mobile {{ item.InputMessage }}
+                td.list-item-not-mobile {{ item.OutputMessage }}
+                td.list-item-not-mobile
+                    v-icon(small @click="deleteItem(item)" color="red") mdi-delete
+            tr(v-else)
+                td
+                    ul.flex-content
+                        li.flex-item#id(data-label="ID") {{ item.UserID }}
+                        li.flex-item(data-label = "Name")  {{ item.time }}  
+                        li.flex-item(data-label="TrainingPhrases") {{ item.InputMessage }}
+                        li.flex-item(data-label="Reply") {{ item.OutputMessage }}
+                        li.flex-item(data-label="Actions")
+                            v-icon(small @click="deleteItem(item)" color="red") mdi-delete
+
+        template.header(v-slot:header="{ props }" v-if="!isMobile")
             th.header-id {{ props.headers[0].text }}  
             th.header-d {{ props.headers[1].text }}                
             th.header-d {{ props.headers[2].text }}                
             th.header-d {{ props.headers[3].text }}                
-            //- th.header-d {{ props.headers[4].text }}
-            th.header-actions Actions
-        template(v-slot:item.UserID="{ item }")
-            div.body-data {{ item.UserID }}
-        template(v-slot:item.Time="{ item }")
-            div.body-data {{ item.time }}
-        template(v-slot:item.InputMessage="{ item }")
-            div.body-data {{ item.InputMessage }}
-        template(v-slot:item.OutputMessage="{ item }")
-            div.body-data {{ item.OutputMessage }}            
+            th.header-d {{ props.headers[4].text }}
 
 </template> 
 <script>
@@ -55,6 +64,7 @@ export default {
 
     name: 'MessageTable',
     data: () => ({
+        isMobile: false,
         trainingPhrase: null,
         dialog: false,
         editedIndex: -1,
@@ -93,6 +103,12 @@ export default {
 
     }),
     methods: {
+        onResize() {
+            if (window.innerWidth < 769)
+                this.isMobile = true;
+            else
+                this.isMobile = false;
+        },
         getMessageLog() {
             console.log(this.$store.state.token)
             axios
@@ -164,64 +180,8 @@ export default {
 
 }
 </script>
-<style scoped lang = "sass">
-$bg-header: linear-gradient(180deg, #848DE3 0%, #CAB8FD 100%)
-
-.header-id
-    background: $bg-header
-    border-radius: 20px 0px 0px 0px
-    height: 70px
-    
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
+<style scoped lang = "sass" src="@/assets/style/_IntentTable.sass">
 
 
-    color: #FFFFFF
-
-.header-d
-    height: 70px
-    background: $bg-header
-
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
-
-
-    color: #FFFFFF
-.header-actions
-    height: 70px
-    background: $bg-header
-    border-radius: 0px 20px 0px 0px
-
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
-
-
-    color: #FFFFFF
-#createBtn
-    box-shadow: 0px 1px 10px 1px rgba(132, 141, 227, 0.5)
-    border-radius: 16px
-#head
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
-th
-    text-align: center
-    vertical-align: middle   
-.body-data
-    vertical-align: middle
-    text-align: center
-.dataTable
-    background: $__dashboard_bg
 
 </style>

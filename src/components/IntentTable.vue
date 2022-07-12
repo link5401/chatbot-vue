@@ -1,6 +1,6 @@
 <template lang="pug">
-v-layout(v-resize="onResize" column style="padding-top:56px")
-    v-data-table(:headers="headers" :items='items' :hide-default-header="isMobile"  :class="{mobile: isMobile}" :pagination.sync="pagination" :items-per-page='6')   
+v-layout(v-resize="onResize" column style="padding-top:50px")
+    v-data-table(:headers="headers" :items='items' hide-default-header height="500px"  :class="{mobile: isMobile}" :pagination.sync="pagination" :items-per-page='5')   
         template(v-slot:top)
             v-toolbar(flat)
                 v-toolbar-title Intents
@@ -33,42 +33,39 @@ v-layout(v-resize="onResize" column style="padding-top:56px")
                         v-card-actions
                             v-spacer
                             v-btn(color='blue darken-1' text @click="closeDelete") Cancel
-                            v-btn(color='blue darken-1' text @click="deleteItemConfirm") OK                       
-        template(v-slot:item.actions="{ item }")
-            v-icon(small class="mr2" @click="editItem(item)") mdi-pencil
-            v-icon(small @click="deleteItem(item)" color="red") mdi-delete
-        //- template.header(v-slot:header="{ props }"")
-        //-     th.header-id {{ props.headers[0].text }}  
-        //-     th.header-d {{ props.headers[1].text }}                
-        //-     th.header-d {{ props.headers[2].text }}                
-        //-     th.header-d {{ props.headers[3].text }}                
-        //-     th.header-d {{ props.headers[4].text }}
-        //-     th.header-actions Actions
-        
-        //- template(v-slot:item.IntentName="{ item }")
-        //-     div.body-data {{ item.IntentName }}
-        //- template(v-slot:item.TrainingPhrases="{ item }")
-        //-     div.body-data {{ item.TrainingPhrases }}
-        //- template(v-slot:item.Reply.message_content="{ item }")
-        //-     div.body-data {{ item.Reply.message_content }}
-        //- template(v-slot:item.Prompts.PromptQuestion="{ item }")
-        //-     div.body-data {{ item.Prompts.PromptQuestion }}
-        //- template(slot="items", slot-scope="props", style="height: 600px")
-        template(v-slot:item="{item}")
+                            v-btn(color='blue darken-1' text @click="deleteItemConfirm") OK 
+
+
+        template(v-slot:item="{item}")            
             tr(v-if="!isMobile")
-                td.text-xs-right {{item.id}}
-                td.text-xs-right {{item.IntentName}}
-                td.text-xs-right {{item.TrainingPhrases}}
-                td.text-xs-right {{item.Reply.message_content}}
-                td.text-xs-right {{item.Prompts.PromptQuestion}}
+                td.list-item-not-mobile {{item.id}}
+                td.list-item-not-mobile {{item.IntentName}}
+                td.list-item-not-mobile {{item.TrainingPhrases}}
+                td.list-item-not-mobile {{item.Reply.message_content}}
+                td.list-item-not-mobile {{item.Prompts.PromptQuestion}}
+                td.list-item-not-mobile
+                    v-icon(small class="mr2" @click="editItem(item)" style="text-align: center;") mdi-pencil
+                    v-icon(small @click="deleteItem(item)" color="red") mdi-delete
             tr(v-else)
                 td
                     ul.flex-content
-                        li.flex-item(data-label="ID") ID: {{item.id}}
-                        li.flex-item(data-label = "Name") Name: {{item.IntentName}}  
-                        li.flex-item(data-label="TrainingPhrases") TrainingPhrases: {{item.TrainingPhrases}}
-                        li.flex-item(data-label="Reply") Reply: {{item.Reply.message_content}}
-                        li.flex-item(data-label="Promptuqestion") Prompts: {{item.Prompts.PromptQuestion}}
+                        li.flex-item#id(data-label="ID") {{item.id}}
+                        li.flex-item(data-label = "Name")  {{item.IntentName}}  
+                        li.flex-item(data-label="TrainingPhrases") {{item.TrainingPhrases}}
+                        li.flex-item(data-label="Reply") {{item.Reply.message_content}}
+                        li.flex-item#prompt(data-label="Prompts")  {{item.Prompts.PromptQuestion}}
+                        li.flex-item(data-label="Actions")
+                            v-icon(small class="mr2" @click="editItem(item)") mdi-pencil
+                            v-icon(small @click="deleteItem(item)" color="red") mdi-delete
+                     
+        template.header(v-slot:header="{ props }" v-if="!isMobile")
+            th.header-id {{ props.headers[0].text }}  
+            th.header-d {{ props.headers[1].text }}                
+            th.header-d {{ props.headers[2].text }}                
+            th.header-d {{ props.headers[3].text }}                
+            th.header-d {{ props.headers[4].text }}
+            th.header-actions Actions
+
 </template> 
 <script>
 import axios from 'axios'
@@ -278,119 +275,5 @@ export default {
 
 }
 </script>
-<style scoped lang = "sass">
-$bg-header: linear-gradient(180deg, #848DE3 0%, #CAB8FD 100%)
-.mobile
-  color: #333
-
-@media screen and (max-width: 768px)
-  .mobile table.v-table tr
-    max-width: 100%
-    position: relative
-    display: block
-
-    &:nth-child(odd)
-      border-left: 6px solid deeppink
-
-    &:nth-child(even)
-      border-left: 6px solid cyan
-
-    td
-      display: flex
-      width: 100%
-      border-bottom: 1px solid #f5f5f5
-      height: auto
-      padding: 10px
-
-      ul li:before
-        content: attr(data-label)
-        padding-right: .5em
-        text-align: left
-        display: block
-        color: #999
-
-  .v-datatable__actions__select
-    width: 50%
-    margin: 0px
-    justify-content: flex-start
-
-  .mobile .theme--light.v-table tbody tr:hover:not(.v-datatable__expand-row)
-    background: transparent
-
-.flex-content
-  padding: 0
-  margin: 0
-  list-style: none
-  display: flex
-  flex-wrap: wrap
-  width: 100%
-
-.flex-item
-  padding: 5px
-  width: 50%
-  height: 40px
-  font-weight: bold
-.header-id
-    background: $bg-header
-    border-radius: 20px 0px 0px 0px
-    height: 70px
-    
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
-
-
-    color: #FFFFFF
-
-
-.header-d
-    height: 70px
-    background: $bg-header
-
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
-
-
-    color: #FFFFFF
-.header-actions
-    height: 70px
-    background: $bg-header
-    border-radius: 0px 20px 0px 0px
-
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
-
-
-    color: #FFFFFF
-
-#createBtn
-    box-shadow: 0px 1px 10px 1px rgba(132, 141, 227, 0.5)
-    border-radius: 16px
-#head
-    font-family: 'Inter'
-    font-style: normal
-    font-weight: 700
-    font-size: 14px
-    line-height: 17px
-th
-    text-align: center
-    vertical-align: middle   
-.body-data
-    vertical-align: middle
-    text-align: center
-.dataTable
-    background: $__dashboard_bg
-.th-table
-    background: $bg_header
-    text-align: center
-    color: white
-
+<style lang="sass" scoped src="@/assets/style/_IntentTable.sass">
 </style>

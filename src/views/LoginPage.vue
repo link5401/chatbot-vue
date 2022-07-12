@@ -1,8 +1,8 @@
 <template lang="pug">
 .LoginPage
-  v-app.inspire
-    Login
+  v-app.inspire  
     BackGround
+      Login
   
 
 </template>
